@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nightwatch — A Guide to Reading the Night Sky</title>
+<meta name="description" content="An informational page on naked-eye stargazing, constellations, and dark-sky observation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0E1220;
+    --panel: #171C30;
+    --ink: #ECEDF3;
+    --gold: #E8B85B;
+    --teal: #6FA8A0;
+    --line: #2B3153;
+    --muted: #8B90AE;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3{ font-family: 'Fraunces', serif; font-weight: 500; }
+  .mono{ font-family: 'IBM Plex Mono', monospace; }
+
+  @media (prefers-reduced-motion: no-preference){
+    .fade-in{ animation: fadeUp 0.9s ease-out both; }
+    .fade-in.delay-1{ animation-delay: 0.15s; }
+    .fade-in.delay-2{ animation-delay: 0.3s; }
+    @keyframes fadeUp{
+      from{ opacity:0; transform: translateY(10px); }
+      to{ opacity:1; transform: translateY(0); }
+    }
+  }
+
+  a{ color: var(--gold); }
+  a:focus-visible, button:focus-visible{ outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  .wrap{ max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+  svg{ display:block; }
+
+  /* ---- Nav ---- */
+  nav{ padding: 24px 40px; border-bottom: 1px solid var(--line); }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; }
+  .brand{ font-family:'Fraunces',serif; font-size: 1.3rem; font-weight: 600; }
+  .nav-links{ display:flex; gap: 30px; font-size: 0.92rem; }
+  .nav-links a{ text-decoration: none; color: var(--muted); }
+  .nav-links a:hover{ color: var(--ink); }
+
+  /* ---- Hero ---- */
+  header.hero{ padding: 68px 0; border-bottom: 1px solid var(--line); position: relative; overflow: hidden; }
+  header.hero .wrap{
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  header.hero .kicker{ color: var(--teal); font-size: 0.95rem; margin: 0 0 16px; font-family: 'IBM Plex Sans'; font-weight:500; }
+  header.hero h1{
+    font-size: clamp(2.2rem, 3.6vw, 3rem);
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0 0 22px;
+    max-width: 16ch;
+  }
+  header.hero p.lede{ font-size: 1.08rem; color: #C7CAE2; max-width: 46ch; margin: 0 0 26px; }
+  .hero-stats{ display: flex; gap: 30px; }
+  .hero-stats div strong{ display:block; font-family:'IBM Plex Mono',monospace; font-size: 1.3rem; color: var(--gold); }
+  .hero-stats div span{ font-size: 0.76rem; color: var(--muted); }
+  .hero-art{ background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 20px; }
+
+  section{ padding: 58px 0; border-bottom: 1px solid var(--line); }
+  section h2{ font-size: 1.55rem; font-weight: 500; margin: 0 0 30px; }
+  section .kicker-sm{ color: var(--teal); font-size: 0.85rem; margin: 0 0 10px; font-family: 'IBM Plex Sans'; font-weight: 500; }
+
+  /* ---- About ---- */
+  .about .wrap{ display: grid; grid-template-columns: 1fr 300px; gap: 56px; align-items: center; }
+  .about p{ margin: 0 0 16px; max-width: 54ch; color: #C7CAE2; }
+  .about p:last-child{ margin-bottom: 0; }
+  .about-art{ background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 22px; }
+
+  /* ---- Tonight's sky: 3 col ---- */
+  .tonight-grid{ display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  .tonight-card{ padding: 28px 30px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .tonight-card h3{ font-size: 1.05rem; margin: 0 0 8px; }
+  .tonight-card p{ margin: 0; color: #C7CAE2; font-size: 0.93rem; }
+  .tonight-card .tag{ font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--gold); display:block; margin-bottom: 10px; }
+
+  /* ---- Constellations: grid with SVG line art ---- */
+  .const-grid{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .const-item{ background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 20px; }
+  .const-item .const-art{ aspect-ratio: 1.2/1; display:flex; align-items:center; justify-content:center; margin-bottom: 14px; }
+  .const-item h3{ font-size: 0.98rem; margin: 0 0 4px; }
+  .const-item p{ margin: 0; font-size: 0.83rem; color: var(--muted); }
+
+  /* ---- Equipment: table ---- */
+  .eq-table{ width: 100%; border-collapse: collapse; }
+  .eq-table th, .eq-table td{ text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--line); font-size: 0.95rem; }
+  .eq-table th{ font-family: 'Fraunces', serif; font-weight: 500; color: var(--gold); font-size: 0.9rem; }
+  .eq-table td.item{ font-weight: 600; }
+  .eq-table td{ color: #C7CAE2; }
+
+  /* ---- Etiquette / dark sky: two columns ---- */
+  .etiquette .wrap{ display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+  .eti-list{ list-style: none; margin: 0; padding: 0; }
+  .eti-list li{ padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .eti-list li:first-child{ padding-top: 0; }
+  .eti-list li:last-child{ border-bottom: none; }
+  .eti-list .name{ font-weight: 600; display:block; margin-bottom: 4px; font-family: 'Fraunces', serif; }
+  .eti-list p{ margin: 0; color: #C7CAE2; font-size: 0.93rem; }
+
+  /* ---- Contact ---- */
+  .community{ border-bottom: none; }
+  .community .wrap{ display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px; align-items: start; }
+  .community p{ margin: 0; grid-column: span 2; max-width: 56ch; color: #C7CAE2; }
+  .contact-block{ display: flex; flex-direction: column; gap: 12px; }
+  .contact-block a{ text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 1px; width: fit-content; }
+  .contact-block a:hover{ color: var(--teal); border-color: var(--teal); }
+
+  footer{ padding: 26px 0 44px; }
+  footer .wrap{ display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--muted); }
+
+  @media (max-width: 940px){
+    header.hero .wrap{ grid-template-columns: 1fr; }
+    .about .wrap{ grid-template-columns: 1fr; }
+    .tonight-grid{ grid-template-columns: 1fr 1fr; }
+    .const-grid{ grid-template-columns: 1fr 1fr; }
+    .etiquette .wrap{ grid-template-columns: 1fr; }
+    .community .wrap{ grid-template-columns: 1fr; }
+    .community p{ grid-column: 1; }
+  }
+  @media (max-width: 560px){
+    .wrap{ padding: 0 22px; }
+    nav{ padding: 20px; }
+    .tonight-grid{ grid-template-columns: 1fr; }
+    .const-grid{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Nightwatch</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#tonight">Tonight's sky</a>
+      <a href="#constellations">Constellations</a>
+      <a href="#equipment">Equipment</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <p class="kicker fade-in">A guide to reading the night sky</p>
+      <h1 class="fade-in delay-1">Everything up there is visible before you ever buy a telescope</h1>
+      <p class="lede fade-in delay-2">A page on naked-eye astronomy — how to find your way around the sky, which constellations to start with, and what actually needs equipment versus what doesn't.</p>
+      <div class="hero-stats fade-in delay-2">
+        <div><strong>~2,500</strong><span>stars visible to the eye</span></div>
+        <div><strong>88</strong><span>officially recognised constellations</span></div>
+        <div><strong>20 min</strong><span>for eyes to adjust to darkness</span></div>
+      </div>
+    </div>
+    <div class="hero-art fade-in delay-2">
+      <svg width="100%" viewBox="0 0 260 220" fill="none">
+        <circle cx="30" cy="30" r="1.4" fill="#ECEDF3"/><circle cx="80" cy="18" r="1" fill="#ECEDF3"/>
+        <circle cx="140" cy="35" r="1.6" fill="#ECEDF3"/><circle cx="200" cy="20" r="1" fill="#ECEDF3"/>
+        <circle cx="230" cy="60" r="1.3" fill="#ECEDF3"/><circle cx="20" cy="90" r="1" fill="#ECEDF3"/>
+        <circle cx="60" cy="140" r="1.2" fill="#ECEDF3"/><circle cx="180" cy="170" r="1" fill="#ECEDF3"/>
+        <circle cx="220" cy="130" r="1.4" fill="#ECEDF3"/><circle cx="110" cy="190" r="1" fill="#ECEDF3"/>
+        <g stroke="#E8B85B" stroke-width="1.4">
+          <circle cx="70" cy="70" r="3" fill="#E8B85B"/>
+          <circle cx="110" cy="55" r="3" fill="#E8B85B"/>
+          <circle cx="150" cy="75" r="3" fill="#E8B85B"/>
+          <circle cx="130" cy="115" r="3" fill="#E8B85B"/>
+          <circle cx="90" cy="120" r="3" fill="#E8B85B"/>
+          <path d="M70 70 L110 55 L150 75 L130 115 L90 120 L70 70"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<section id="about" class="about">
+  <div class="wrap">
+    <div>
+      <h2>Where to begin</h2>
+      <p>You don't need a telescope to start. On a clear night away from city lights, the unaided eye can pick out roughly two and a half thousand stars, five planets, and the pale band of our own galaxy overhead.</p>
+      <p>The only real requirement is patience — about twenty minutes of darkness for your eyes to fully adjust, and a red flashlight if you need to check a map without ruining that adjustment.</p>
+    </div>
+    <div class="about-art">
+      <svg width="100%" viewBox="0 0 200 200" fill="none">
+        <circle cx="100" cy="100" r="70" stroke="#2B3153" stroke-width="1"/>
+        <circle cx="100" cy="100" r="45" stroke="#2B3153" stroke-width="1"/>
+        <circle cx="55" cy="60" r="1.5" fill="#ECEDF3"/><circle cx="140" cy="45" r="1" fill="#ECEDF3"/>
+        <circle cx="160" cy="110" r="1.3" fill="#ECEDF3"/><circle cx="50" cy="140" r="1" fill="#ECEDF3"/>
+        <circle cx="100" cy="30" r="1.2" fill="#ECEDF3"/><circle cx="170" cy="160" r="1" fill="#ECEDF3"/>
+        <circle cx="100" cy="100" r="4" fill="#E8B85B"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="tonight">
+  <div class="wrap">
+    <h2>What to look for tonight</h2>
+    <div class="tonight-grid">
+      <div class="tonight-card">
+        <span class="tag">MOON</span>
+        <h3>Phase</h3>
+        <p>The phase changes visibility for fainter objects — a full moon washes out the sky, while a new moon is best for deep viewing.</p>
+      </div>
+      <div class="tonight-card">
+        <span class="tag">PLANETS</span>
+        <h3>Wandering stars</h3>
+        <p>Venus, Mars, Jupiter, and Saturn are all bright enough to see without help — the giveaway is that they don't twinkle like stars do.</p>
+      </div>
+      <div class="tonight-card">
+        <span class="tag">ISS</span>
+        <h3>The space station</h3>
+        <p>Visible as a steady, fast-moving point of light for a few minutes after sunset or before sunrise, on the right pass.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="constellations">
+  <div class="wrap">
+    <h2>Four to start with</h2>
+    <div class="const-grid">
+      <div class="const-item">
+        <div class="const-art">
+          <svg width="90%" viewBox="0 0 120 120"><g stroke="#6FA8A0" stroke-width="1.3"><circle cx="30" cy="20" r="2.5" fill="#6FA8A0"/><circle cx="60" cy="15" r="2.5" fill="#6FA8A0"/><circle cx="90" cy="25" r="2.5" fill="#6FA8A0"/><circle cx="55" cy="55" r="2.5" fill="#6FA8A0"/><circle cx="55" cy="75" r="2.5" fill="#6FA8A0"/><circle cx="25" cy="95" r="2.5" fill="#6FA8A0"/><circle cx="85" cy="95" r="2.5" fill="#6FA8A0"/><path d="M30 20 L55 55 L60 15 M90 25 L55 55 M55 55 L55 75 M55 75 L25 95 M55 75 L85 95" fill="none"/></g></svg>
+        </div>
+        <h3>Orion</h3>
+        <p>The hunter — look for the three-star belt, visible worldwide in winter evenings.</p>
+      </div>
+      <div class="const-item">
+        <div class="const-art">
+          <svg width="90%" viewBox="0 0 120 120"><g stroke="#6FA8A0" stroke-width="1.3"><circle cx="20" cy="30" r="2.5" fill="#6FA8A0"/><circle cx="45" cy="20" r="2.5" fill="#6FA8A0"/><circle cx="70" cy="30" r="2.5" fill="#6FA8A0"/><circle cx="95" cy="20" r="2.5" fill="#6FA8A0"/><circle cx="100" cy="45" r="2.5" fill="#6FA8A0"/><circle cx="30" cy="60" r="2.5" fill="#6FA8A0"/><circle cx="70" cy="65" r="2.5" fill="#6FA8A0"/><path d="M20 30 L45 20 L70 30 L95 20 L100 45 M30 60 L70 65" fill="none"/></g></svg>
+        </div>
+        <h3>Ursa Major</h3>
+        <p>The Big Dipper — a reliable starting point for finding Polaris, the North Star.</p>
+      </div>
+      <div class="const-item">
+        <div class="const-art">
+          <svg width="90%" viewBox="0 0 120 120"><g stroke="#6FA8A0" stroke-width="1.3"><circle cx="15" cy="70" r="2.5" fill="#6FA8A0"/><circle cx="40" cy="40" r="2.5" fill="#6FA8A0"/><circle cx="65" cy="60" r="2.5" fill="#6FA8A0"/><circle cx="90" cy="30" r="2.5" fill="#6FA8A0"/><circle cx="105" cy="55" r="2.5" fill="#6FA8A0"/><path d="M15 70 L40 40 L65 60 L90 30 L105 55" fill="none"/></g></svg>
+        </div>
+        <h3>Cassiopeia</h3>
+        <p>A clear W shape — easy to spot and directly opposite the Big Dipper across Polaris.</p>
+      </div>
+      <div class="const-item">
+        <div class="const-art">
+          <svg width="90%" viewBox="0 0 120 120"><g stroke="#6FA8A0" stroke-width="1.3"><circle cx="30" cy="20" r="2.5" fill="#6FA8A0"/><circle cx="55" cy="45" r="2.5" fill="#6FA8A0"/><circle cx="80" cy="65" r="2.5" fill="#6FA8A0"/><circle cx="60" cy="90" r="2.5" fill="#6FA8A0"/><circle cx="30" cy="75" r="2.5" fill="#6FA8A0"/><path d="M30 20 L55 45 L80 65 L60 90 M55 45 L30 75" fill="none"/></g></svg>
+        </div>
+        <h3>Cygnus</h3>
+        <p>The Northern Cross — sits along the Milky Way's band, best seen in summer skies.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="equipment">
+  <div class="wrap">
+    <h2>What actually needs equipment</h2>
+    <table class="eq-table">
+      <thead>
+        <tr><th>Object</th><th>What you need</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="item">Constellations &amp; bright stars</td><td>Naked eye</td><td>No equipment required at all</td></tr>
+        <tr><td class="item">Moon's craters</td><td>Binoculars</td><td>Even modest 8x binoculars reveal real detail</td></tr>
+        <tr><td class="item">Jupiter's moons</td><td>Binoculars or small scope</td><td>Four moons are visible as tiny points of light</td></tr>
+        <tr><td class="item">Saturn's rings</td><td>Telescope</td><td>Needs at least 25–30x magnification to resolve</td></tr>
+        <tr><td class="item">Deep-sky nebulae</td><td>Telescope + dark sky</td><td>Light pollution matters more than aperture here</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="etiquette" class="etiquette">
+  <div class="wrap">
+    <div>
+      <p class="kicker-sm">Sharing the dark</p>
+      <h2>Dark-sky etiquette</h2>
+    </div>
+    <ul class="eti-list">
+      <li><span class="name">Use red light only</span><p>White light ruins night vision for everyone nearby — a dim red flashlight preserves it.</p></li>
+      <li><span class="name">Give eyes and telescopes room</span><p>Stray light and vibration both interfere with someone else's view — keep distance and a low profile.</p></li>
+      <li><span class="name">Ask before using a scope</span><p>It's common courtesy at public viewing spots to ask before looking through someone else's equipment.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section id="contact" class="community">
+  <div class="wrap">
+    <h2 style="grid-column: 1 / -1;">Get in touch</h2>
+    <p>If you've spotted something worth adding, or a correction to make, write in. This page grows slowly, the way a sky map does — one confirmed detail at a time.</p>
+    <div class="contact-block">
+      <a href="mailto:hello@nightwatch.example">hello@nightwatch.example</a>
+      <a href="#">RSS feed</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Nightwatch</span>
+    <span>a guide to reading the night sky</span>
+  </div>
+</footer>
+
+</body>
+</html>
