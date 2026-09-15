@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Footwork — Training Notes for Badminton Players</title>
+<meta name="description" content="An informational page on badminton footwork, training, and injury prevention.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F3F4F0;
+    --panel: #E9EAE3;
+    --ink: #1B1F1D;
+    --blue: #1D3A5F;
+    --orange: #D9622B;
+    --line: #D6D8CE;
+    --muted: #5E655D;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3{ font-family: 'Archivo', sans-serif; }
+  .mono{ font-family: 'IBM Plex Mono', monospace; }
+
+  @media (prefers-reduced-motion: no-preference){
+    .fade-in{ animation: fadeUp 0.9s ease-out both; }
+    .fade-in.delay-1{ animation-delay: 0.15s; }
+    .fade-in.delay-2{ animation-delay: 0.3s; }
+    @keyframes fadeUp{
+      from{ opacity:0; transform: translateY(10px); }
+      to{ opacity:1; transform: translateY(0); }
+    }
+  }
+
+  a{ color: var(--blue); }
+  a:focus-visible, button:focus-visible{ outline: 2px solid var(--blue); outline-offset: 3px; }
+
+  .wrap{ max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+  svg{ display:block; }
+
+  /* ---- Nav ---- */
+  nav{ padding: 24px 40px; border-bottom: 1px solid var(--line); }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; }
+  .brand{ font-family:'Archivo',sans-serif; font-size: 1.2rem; font-weight: 700; }
+  .nav-links{ display:flex; gap: 30px; font-size: 0.92rem; }
+  .nav-links a{ text-decoration: none; color: var(--muted); }
+  .nav-links a:hover{ color: var(--ink); }
+
+  /* ---- Hero ---- */
+  header.hero{ padding: 60px 0; border-bottom: 1px solid var(--line); }
+  header.hero .wrap{
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 56px;
+    align-items: center;
+  }
+  header.hero .kicker{ color: var(--orange); font-size: 0.95rem; margin: 0 0 16px; font-weight:500; }
+  header.hero h1{
+    font-size: clamp(2rem, 3.2vw, 2.7rem);
+    font-weight: 700;
+    line-height: 1.16;
+    margin: 0 0 20px;
+    max-width: 15ch;
+    color: var(--blue);
+  }
+  header.hero p.lede{ font-size: 1.05rem; color: #333831; max-width: 44ch; margin: 0 0 24px; }
+  .hero-stats{ display: flex; gap: 28px; }
+  .hero-stats div strong{ display:block; font-family:'IBM Plex Mono',monospace; font-size: 1.3rem; color: var(--blue); }
+  .hero-stats div span{ font-size: 0.76rem; color: var(--muted); }
+  .hero-art{ background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 24px; }
+
+  section{ padding: 54px 0; border-bottom: 1px solid var(--line); }
+  section h2{ font-size: 1.4rem; font-weight: 700; margin: 0 0 28px; color: var(--blue); }
+  section .kicker-sm{ color: var(--orange); font-size: 0.85rem; margin: 0 0 10px; font-weight: 500; }
+
+  /* ---- Footwork: diagram + numbered list (real sequence) ---- */
+  .footwork .wrap{ display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+  .fw-art{ background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 20px; }
+  .fw-list{ list-style: none; margin: 0; padding: 0; counter-reset: fw; }
+  .fw-list li{
+    counter-increment: fw;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 14px;
+  }
+  .fw-list li:first-child{ padding-top: 0; }
+  .fw-list li:last-child{ border-bottom: none; }
+  .fw-list li::before{
+    content: counter(fw);
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--orange);
+    font-size: 0.9rem;
+  }
+  .fw-list .desc{ color: #333831; font-size: 0.95rem; }
+  .fw-list .name{ display:block; font-weight: 600; margin-bottom: 2px; }
+
+  /* ---- Weekly split table ---- */
+  .split-table{ width: 100%; border-collapse: collapse; }
+  .split-table th, .split-table td{ text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--line); font-size: 0.95rem; }
+  .split-table th{ font-family: 'Archivo', sans-serif; font-weight: 600; color: var(--blue); font-size: 0.85rem; }
+  .split-table td.day{ font-weight: 600; }
+  .split-table td.dur{ font-family: 'IBM Plex Mono', monospace; color: var(--muted); white-space: nowrap; }
+
+  /* ---- Warm-up icons row ---- */
+  .warmup-grid{ display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  .warmup-item{ padding: 26px 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .warmup-item .icon-box{ background: var(--panel); border-radius: 6px; padding: 18px; display:flex; align-items:center; justify-content:center; margin-bottom: 12px; aspect-ratio: 1.3/1; }
+  .warmup-item h3{ font-size: 0.95rem; margin: 0 0 4px; }
+  .warmup-item p{ margin: 0; font-size: 0.85rem; color: var(--muted); }
+
+  /* ---- Injury prevention: two columns ---- */
+  .injury .wrap{ display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+  .injury-list{ list-style: none; margin: 0; padding: 0; }
+  .injury-list li{ padding: 16px 0; border-bottom: 1px solid var(--line); display: flex; gap: 16px; align-items: flex-start; }
+  .injury-list li:first-child{ padding-top: 0; }
+  .injury-list li:last-child{ border-bottom: none; }
+  .injury-list .name{ font-weight: 600; display:block; margin-bottom: 2px; }
+  .injury-list p{ margin: 0; color: #333831; font-size: 0.93rem; }
+  .injury-art{ background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 24px; align-self: start; }
+
+  /* ---- Contact ---- */
+  .community{ border-bottom: none; }
+  .community .wrap{ display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px; align-items: start; }
+  .community p{ margin: 0; grid-column: span 2; max-width: 56ch; color: #333831; }
+  .contact-block{ display: flex; flex-direction: column; gap: 12px; }
+  .contact-block a{ text-decoration: none; border-bottom: 1px solid var(--blue); padding-bottom: 1px; width: fit-content; }
+  .contact-block a:hover{ color: var(--orange); border-color: var(--orange); }
+
+  footer{ padding: 26px 0 44px; }
+  footer .wrap{ display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--muted); }
+
+  @media (max-width: 940px){
+    header.hero .wrap{ grid-template-columns: 1fr; }
+    .footwork .wrap{ grid-template-columns: 1fr; }
+    .warmup-grid{ grid-template-columns: 1fr 1fr; }
+    .injury .wrap{ grid-template-columns: 1fr; }
+    .community .wrap{ grid-template-columns: 1fr; }
+    .community p{ grid-column: 1; }
+    .split-table{ font-size: 0.85rem; }
+  }
+  @media (max-width: 560px){
+    .wrap{ padding: 0 22px; }
+    nav{ padding: 20px; }
+    .warmup-grid{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Footwork</div>
+    <div class="nav-links">
+      <a href="#footwork">Footwork</a>
+      <a href="#training">Training</a>
+      <a href="#warmup">Warm-up</a>
+      <a href="#injury">Injury care</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <p class="kicker fade-in">Training notes for badminton players</p>
+      <h1 class="fade-in delay-1">Footwork wins more points than the racket arm does</h1>
+      <p class="lede fade-in delay-2">A page on how badminton players actually train — the footwork patterns, the weekly split, and the small habits that keep a body playing for years instead of months.</p>
+      <div class="hero-stats fade-in delay-2">
+        <div><strong>6</strong><span>base court corners</span></div>
+        <div><strong>0.4s</strong><span>avg. reaction to a smash</span></div>
+        <div><strong>350+</strong><span>direction changes per match</span></div>
+      </div>
+    </div>
+    <div class="hero-art fade-in delay-2">
+      <svg width="100%" viewBox="0 0 260 220" fill="none">
+        <rect x="10" y="10" width="240" height="200" rx="4" stroke="#1D3A5F" stroke-width="1.5"/>
+        <line x1="10" y1="110" x2="250" y2="110" stroke="#1D3A5F" stroke-width="1"/>
+        <circle cx="130" cy="165" r="6" fill="#D9622B"/>
+        <circle cx="35" cy="35" r="4" fill="#1D3A5F"/>
+        <circle cx="130" cy="20" r="4" fill="#1D3A5F"/>
+        <circle cx="225" cy="35" r="4" fill="#1D3A5F"/>
+        <circle cx="35" cy="200" r="4" fill="#1D3A5F"/>
+        <circle cx="225" cy="200" r="4" fill="#1D3A5F"/>
+        <path d="M130 165 L35 35 M130 165 L130 20 M130 165 L225 35 M130 165 L35 200 M130 165 L225 200" stroke="#D9622B" stroke-width="1.2" stroke-dasharray="3 3"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<section id="footwork" class="footwork">
+  <div class="wrap">
+    <div>
+      <p class="kicker-sm">The base pattern</p>
+      <h2>Six-corner footwork</h2>
+      <ol class="fw-list">
+        <li><span class="desc"><span class="name">Front left &amp; right</span>Split step, then lunge to the net corners for a drop or net shot, pushing off the back foot to recover.</span></li>
+        <li><span class="desc"><span class="name">Mid left &amp; right</span>Side-step to the mid-court for a drive, keeping the racket up through the shot.</span></li>
+        <li><span class="desc"><span class="name">Rear left &amp; right</span>Chassé or scissor-step to the back corners for a clear or smash, then recover to base.</span></li>
+      </ol>
+    </div>
+    <div class="fw-art">
+      <svg width="100%" viewBox="0 0 260 300" fill="none">
+        <rect x="10" y="10" width="240" height="280" stroke="#1D3A5F" stroke-width="1.5"/>
+        <line x1="10" y1="150" x2="250" y2="150" stroke="#D9622B" stroke-width="1.5"/>
+        <circle cx="130" cy="150" r="6" fill="#1D3A5F"/>
+        <text x="118" y="145" font-family="IBM Plex Mono" font-size="11" fill="#1D3A5F">base</text>
+        <g font-family="IBM Plex Mono" font-size="11" fill="#5E655D">
+          <circle cx="40" cy="35" r="14" fill="#E9EAE3" stroke="#1D3A5F"/><text x="35" y="39">1</text>
+          <circle cx="130" cy="20" r="14" fill="#E9EAE3" stroke="#1D3A5F"/><text x="125" y="24">2</text>
+          <circle cx="220" cy="35" r="14" fill="#E9EAE3" stroke="#1D3A5F"/><text x="215" y="39">3</text>
+          <circle cx="40" cy="265" r="14" fill="#E9EAE3" stroke="#1D3A5F"/><text x="35" y="269">6</text>
+          <circle cx="130" cy="280" r="14" fill="#E9EAE3" stroke="#1D3A5F"/><text x="125" y="284">5</text>
+          <circle cx="220" cy="265" r="14" fill="#E9EAE3" stroke="#1D3A5F"/><text x="215" y="269">4</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="training">
+  <div class="wrap">
+    <h2>A sample weekly split</h2>
+    <table class="split-table">
+      <thead>
+        <tr><th>Day</th><th>Focus</th><th>Duration</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="day">Monday</td><td>On-court technique &amp; multi-shuttle drills</td><td class="dur">90 min</td></tr>
+        <tr><td class="day">Tuesday</td><td>Footwork ladder &amp; agility work</td><td class="dur">60 min</td></tr>
+        <tr><td class="day">Wednesday</td><td>Match play &amp; tactical rounds</td><td class="dur">100 min</td></tr>
+        <tr><td class="day">Thursday</td><td>Strength — legs, core, shoulders</td><td class="dur">50 min</td></tr>
+        <tr><td class="day">Friday</td><td>On-court technique &amp; deception drills</td><td class="dur">90 min</td></tr>
+        <tr><td class="day">Saturday</td><td>Match play</td><td class="dur">120 min</td></tr>
+        <tr><td class="day">Sunday</td><td>Rest &amp; mobility</td><td class="dur">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="warmup">
+  <div class="wrap">
+    <h2>Warming up before you swing</h2>
+    <div class="warmup-grid">
+      <div class="warmup-item">
+        <div class="icon-box">
+          <svg width="46" height="46" viewBox="0 0 46 46" fill="none"><circle cx="23" cy="10" r="5" stroke="#1D3A5F" stroke-width="2"/><path d="M23 15 V28 M23 20 L12 14 M23 20 L34 14 M23 28 L14 42 M23 28 L32 42" stroke="#1D3A5F" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Arm circles</h3>
+        <p>Loosens the shoulder before overhead strokes — 15 slow circles each direction.</p>
+      </div>
+      <div class="warmup-item">
+        <div class="icon-box">
+          <svg width="46" height="46" viewBox="0 0 46 46" fill="none"><path d="M14 40 L14 24 L28 24 L34 12" stroke="#1D3A5F" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="34" cy="8" r="4" stroke="#1D3A5F" stroke-width="2"/></svg>
+        </div>
+        <h3>Walking lunges</h3>
+        <p>Opens the hips and primes the legs for the lunge used in every net shot.</p>
+      </div>
+      <div class="warmup-item">
+        <div class="icon-box">
+          <svg width="46" height="46" viewBox="0 0 46 46" fill="none"><ellipse cx="23" cy="30" rx="10" ry="6" stroke="#1D3A5F" stroke-width="2"/><path d="M23 24 V8" stroke="#1D3A5F" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Ankle rotations</h3>
+        <p>Prepares the joint that absorbs most of the load in sharp direction changes.</p>
+      </div>
+      <div class="warmup-item">
+        <div class="icon-box">
+          <svg width="46" height="46" viewBox="0 0 46 46" fill="none"><path d="M8 30 Q23 6 38 30" stroke="#1D3A5F" stroke-width="2" fill="none"/></svg>
+        </div>
+        <h3>Shadow footwork</h3>
+        <p>Runs the six-corner pattern without a shuttle to raise heart rate and rehearse movement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="injury" class="injury">
+  <div class="wrap">
+    <div>
+      <p class="kicker-sm">Playing for the long term</p>
+      <h2>Common strain points</h2>
+      <ul class="injury-list">
+        <li><div><span class="name">Knees</span><p>Repeated lunging strains the patellar tendon — strengthening the quads and calves reduces load on the joint.</p></div></li>
+        <li><div><span class="name">Shoulder</span><p>The overhead smash is repetitive and can inflame the rotator cuff — rest and rotator-strengthening work help most.</p></div></li>
+        <li><div><span class="name">Ankles</span><p>Lateral movement makes rolled ankles common — court shoes with lateral support cut the risk noticeably.</p></div></li>
+        <li><div><span class="name">Lower back</span><p>Explosive rotation during smashes stresses the lumbar spine — core stability work is the usual preventive fix.</p></div></li>
+      </ul>
+    </div>
+    <div class="injury-art">
+      <svg width="100%" viewBox="0 0 220 260" fill="none">
+        <circle cx="110" cy="30" r="16" stroke="#1D3A5F" stroke-width="2"/>
+        <path d="M110 46 V140" stroke="#1D3A5F" stroke-width="2"/>
+        <path d="M110 70 L70 100 M110 70 L150 100" stroke="#1D3A5F" stroke-width="2" stroke-linecap="round"/>
+        <path d="M110 140 L80 210 M110 140 L140 210" stroke="#1D3A5F" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="150" cy="100" r="7" fill="#D9622B"/>
+        <circle cx="80" cy="210" r="7" fill="#D9622B"/>
+        <circle cx="140" cy="210" r="7" fill="#D9622B"/>
+        <circle cx="110" cy="140" r="6" fill="#D9622B"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="community">
+  <div class="wrap">
+    <h2 style="grid-column: 1 / -1;">Get in touch</h2>
+    <p>If you coach, play, or rehab badminton players and think something here is missing or wrong, write in. This page is meant to stay accurate more than complete.</p>
+    <div class="contact-block">
+      <a href="mailto:hello@footwork.example">hello@footwork.example</a>
+      <a href="#">RSS feed</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Footwork</span>
+    <span>training notes for badminton players</span>
+  </div>
+</footer>
+
+</body>
+</html>
